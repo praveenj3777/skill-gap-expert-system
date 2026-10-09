@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Knowledge Base - Skill-Gap Analysis Expert System{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-9">
+
+      <!-- Header Banner -->
+      <div class="mb-4">
+        <span class="badge bg-light text-primary border small mb-2">Domain Knowledge</span>
+        <h2 class="fw-bold text-dark mb-1">Knowledge Base</h2>
+        <p class="text-muted small mb-0">
+          Curated industry benchmarks, skill definitions, and learning roadmaps stored in <code>knowledge_base/careers.json</code>.
+        </p>
+      </div>
+
+      <!-- Career Selector Tabs -->
+      <ul class="nav nav-pills gap-2 mb-4 p-2 bg-white rounded-3 border" id="careerTabs" role="tablist">
+        {% for cid, career in careers.items() %}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link rounded-2 small fw-semibold py-2 px-3 {% if loop.first %}active{% endif %}" 
+                  id="tab-{{ cid }}" 
+                  data-bs-toggle="pill" 
+                  data-bs-target="#content-{{ cid }}" 
+                  type="button" 
+                  role="tab">
+            {{ career.name }}
+          </button>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <!-- Tab Contents -->
+      <div class="tab-content" id="careerTabContent">
+        {% for cid, career in careers.items() %}
+        <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="content-{{ cid }}" role="tabpanel">
+          
+          <!-- Career Header Overview -->
+          <div class="card border rounded-3 p-4 mb-4 bg-white shadow-sm">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+              <h4 class="fw-bold text-dark mb-0">{{ career.name }}</h4>
+              <span class="badge bg-light text-secondary border small">{{ career.domain }}</span>
+            </div>
+            <p class="text-muted small mb-3">{{ career.description }}</p>
+            <div>
+              <a href="{{ url_for('assessment') }}?career={{ cid }}" class="btn btn-primary btn-sm rounded-2 px-3 fw-medium">
+                Start Assessment for {{ career.name }} <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Skills Cards Grid -->
+          <div class="row g-3">
+            {% for sname, sinfo in career.skills.items() %}
+            <div class="col-md-6">
+              <div class="card h-100 border rounded-3 p-3 bg-white shadow-none hover-border-primary">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <div>
+                    <h6 class="fw-bold text-dark mb-1">{{ sname }}</h6>
+                    <span class="badge bg-light text-muted border small">{{ sinfo.importance }}</span>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge bg-light text-primary border border-primary-subtle small">
+                      Required: Level {{ sinfo.required_level }}/5
+                    </span>
+                    <div class="text-muted" style="font-size: 0.75rem;">{{ proficiency_scale[sinfo.required_level] }}</div>
+                  </div>
+                </div>
+
+                <div class="mb-2">
+                  <div class="text-muted small" style="font-size: 0.825rem;">{{ sinfo.description }}</div>
+                </div>
+
+                <div class="p-2 px-3 bg-light rounded-2 mb-2 border small">
+                  <span class="fw-semibold text-secondary d-block" style="font-size: 0.75rem;">Recommendation:</span>
+                  <span class="text-dark" style="font-size: 0.8rem;">{{ sinfo.recommendation }}</span>
+                </div>
+
+                {% if sinfo.resources %}
+                <div class="pt-2 border-top">
+                  <span class="text-muted small" style="font-size: 0.75rem;">Key Resources: </span>
+                  <span class="text-secondary small" style="font-size: 0.75rem;">{{ sinfo.resources|join(', ') }}</span>
+                </div>
+                {% endif %}
+
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Skill Assessment - Skill-Gap Analysis Expert System{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-9 col-xl-8">
+
+      <!-- Page Header -->
+      <div class="mb-4 text-center text-md-start">
+        <h2 class="fw-bold text-dark mb-1">Student Skill Assessment</h2>
+        <p class="text-muted small mb-0">Evaluate your current technical skills against industry benchmarks.</p>
+      </div>
+
+      <!-- Demo & Test Data Accordion/Box (Separated for College Viva) -->
+      <div class="card border rounded-3 mb-4 bg-light-subtle shadow-none">
+        <div class="card-body p-3">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+            <span class="small fw-semibold text-secondary">
+              <i class="bi bi-mortarboard me-1 text-primary"></i> Demo & Test Data (Optional for College Viva)
+            </span>
+            <span class="badge bg-white text-muted border small">Testing Only</span>
+          </div>
+          <p class="text-muted small mb-2" style="font-size: 0.825rem;">
+            Click a preset below to populate test scenarios during a viva demonstration:
+          </p>
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary bg-white" onclick="loadPreset('test1')">
+              Test 1: Data Analyst (Low Skills)
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary bg-white" onclick="loadPreset('test2')">
+              Test 2: Data Analyst (High Skills)
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary bg-white" onclick="loadPreset('test3')">
+              Test 3: Web Dev (Mixed Skills)
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary bg-white" onclick="loadPreset('test4')">
+              Test 4: AI/ML (Weak Python)
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary bg-white" onclick="loadPreset('test5')">
+              Test 5: Cyber Sec (Mixed)
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger bg-white" onclick="clearForm()">
+              <i class="bi bi-x-circle me-1"></i> Clear Form
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assessment Form -->
+      <form action="{{ url_for('analyze') }}" method="POST" id="assessmentForm">
+
+        <!-- STEP 1: Your Information -->
+        <div class="card border rounded-3 p-4 mb-4 bg-white shadow-sm">
+          <div class="d-flex align-items-center gap-2 mb-3 pb-2 border-bottom">
+            <span class="step-badge">1</span>
+            <h5 class="fw-bold text-dark mb-0">Your Information</h5>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="student_name" class="form-label small fw-semibold text-secondary">Student Full Name</label>
+              <!-- Name is completely empty by default as requested -->
+              <input type="text" class="form-control" id="student_name" name="student_name" placeholder="Enter your name" value="" required>
+            </div>
+
+            <div class="col-md-6">
+              <label for="career_id" class="form-label small fw-semibold text-secondary">Target Career</label>
+              <select class="form-select" id="career_id" name="career_id" onchange="onCareerChange()">
+                {% for cid, career in careers.items() %}
+                  <option value="{{ cid }}" {% if cid == 'data_analyst' %}selected{% endif %}>{{ career.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <!-- Target Career Description -->
+          <div id="careerDescriptionBox" class="mt-3 p-3 bg-light rounded-2 border">
+            <div class="d-flex align-items-start gap-2">
+              <i class="bi bi-info-circle text-primary mt-1"></i>
+              <div>
+                <strong id="careerTitle" class="d-block text-dark small">Data Analyst</strong>
+                <span id="careerDescription" class="text-muted small">Examines, cleans, transforms, and models data to discover useful information and support decision-making.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Rate Your Skills -->
+        <div class="card border rounded-3 p-4 mb-4 bg-white shadow-sm">
+          <div class="d-flex align-items-center gap-2 mb-3 pb-2 border-bottom">
+            <span class="step-badge">2</span>
+            <div>
+              <h5 class="fw-bold text-dark mb-0">Rate Your Skills</h5>
+              <div class="text-muted small">Rate your current proficiency for each relevant skill from 1 to 5:</div>
+            </div>
+          </div>
+
+          <!-- Proficiency Rating Scale Guide -->
+          <div class="proficiency-guide-bar p-2 px-3 mb-4 rounded-2 bg-light border text-muted small">
+            <div class="row text-center g-1">
+              <div class="col"><span class="fw-semibold text-dark">1</span> Beginner</div>
+              <div class="col"><span class="fw-semibold text-dark">2</span> Basic</div>
+              <div class="col"><span class="fw-semibold text-dark">3</span> Intermediate</div>
+              <div class="col"><span class="fw-semibold text-dark">4</span> Advanced</div>
+              <div class="col"><span class="fw-semibold text-dark">5</span> Expert</div>
+            </div>
+          </div>
+
+          <!-- Dynamic Skill Cards Container -->
+          <div id="skillsContainer" class="row g-3">
+            <!-- Populated dynamically via script.js -->
+          </div>
+        </div>
+
+        <!-- STEP 3: Analyze Button -->
+        <div class="card border rounded-3 p-4 mb-5 bg-white shadow-sm text-center">
+          <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+            <span class="step-badge">3</span>
+            <h5 class="fw-bold text-dark mb-0">Analyze Skill Gap</h5>
+          </div>
+          <p class="text-muted small mb-3">
+            The expert system will compare your ratings with the knowledge base benchmarks and deduce your gap analysis.
+          </p>
+
+          <div>
+            <button type="submit" class="btn btn-primary btn-lg px-5 py-2-5 rounded-3 fw-semibold shadow-sm">
+              Analyze My Skill Gap <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const careerParam = urlParams.get('career');
+    if (careerParam) {
+      const select = document.getElementById('career_id');
+      if (select) {
+        select.value = careerParam;
+      }
+    }
+    // Render skills for selected career
+    onCareerChange();
+  });
+</script>
+{% endblock %}

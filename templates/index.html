@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Skill-Gap Analysis Expert System - Home{% endblock %}
+
+{% block content %}
+<!-- Clean Hero Section -->
+<section class="hero-section py-5 bg-white border-bottom">
+  <div class="container py-lg-4 text-center">
+    <div class="d-inline-flex align-items-center gap-2 px-3 py-1 mb-4 rounded-pill bg-light border text-secondary small fw-medium">
+      <i class="bi bi-mortarboard text-primary"></i>
+      <span>College CSE Expert System Project</span>
+    </div>
+    
+    <h1 class="hero-title fw-bold text-dark mb-3 mx-auto">
+      Find the skills you need for your career.
+    </h1>
+    
+    <p class="hero-subtitle text-muted mb-4 mx-auto">
+      Assess your current skills, discover your gaps, and get a personalized learning path using our rule-based expert system.
+    </p>
+
+    <div class="d-flex flex-wrap justify-content-center gap-3 pt-2">
+      <a href="{{ url_for('assessment') }}" class="btn btn-primary btn-lg px-4 py-2-5 rounded-3 fw-semibold shadow-sm">
+        Start Skill Assessment <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+      <a href="{{ url_for('knowledge_base') }}" class="btn btn-outline-secondary btn-lg px-4 py-2-5 rounded-3 fw-semibold">
+        Explore Careers
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Simple Visual Flow Section (Requirement 7) -->
+<section class="py-5 bg-light-subtle border-bottom">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h5 class="fw-bold text-dark mb-1">How the System Works</h5>
+      <p class="text-muted small">A straightforward rule-based decision flow from input to recommendations</p>
+    </div>
+
+    <!-- Visual Process Flow -->
+    <div class="row g-3 justify-content-center align-items-center text-center max-w-900 mx-auto">
+      
+      <!-- Step 1 -->
+      <div class="col-md-3 col-sm-6">
+        <div class="flow-card p-3 rounded-3 bg-white border h-100">
+          <div class="flow-icon mb-2 text-primary">
+            <i class="bi bi-person-check fs-3"></i>
+          </div>
+          <h6 class="fw-bold text-dark mb-1">Your Skills</h6>
+          <p class="text-muted small mb-0">Self-rate your proficiency from 1 to 5 for your target career.</p>
+        </div>
+      </div>
+
+      <div class="col-auto d-none d-md-block text-muted">
+        <i class="bi bi-arrow-right fs-4 text-secondary"></i>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="col-md-3 col-sm-6">
+        <div class="flow-card p-3 rounded-3 bg-white border h-100">
+          <div class="flow-icon mb-2 text-primary">
+            <i class="bi bi-diagram-3 fs-3"></i>
+          </div>
+          <h6 class="fw-bold text-dark mb-1">Expert Rules</h6>
+          <p class="text-muted small mb-0">Production IF-THEN rules evaluate benchmark requirements.</p>
+        </div>
+      </div>
+
+      <div class="col-auto d-none d-md-block text-muted">
+        <i class="bi bi-arrow-right fs-4 text-secondary"></i>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="col-md-3 col-sm-6">
+        <div class="flow-card p-3 rounded-3 bg-white border h-100">
+          <div class="flow-icon mb-2 text-primary">
+            <i class="bi bi-bar-chart-steps fs-3"></i>
+          </div>
+          <h6 class="fw-bold text-dark mb-1">Skill Gap Analysis</h6>
+          <p class="text-muted small mb-0">Identifies exact gaps and prioritizes them (High, Medium, Low).</p>
+        </div>
+      </div>
+
+      <div class="col-auto d-none d-md-block text-muted">
+        <i class="bi bi-arrow-right fs-4 text-secondary"></i>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="col-md-3 col-sm-6">
+        <div class="flow-card p-3 rounded-3 bg-white border h-100">
+          <div class="flow-icon mb-2 text-primary">
+            <i class="bi bi-journal-bookmark fs-3"></i>
+          </div>
+          <h6 class="fw-bold text-dark mb-1">Learning Roadmap</h6>
+          <p class="text-muted small mb-0">Actionable advice and resources explained step-by-step.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Supported Careers Section -->
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+      <div>
+        <h3 class="fw-bold text-dark mb-1">Career Profiles in Knowledge Base</h3>
+        <p class="text-muted mb-0 small">Each profile contains required skills, proficiency levels, and learning roadmaps.</p>
+      </div>
+      <a href="{{ url_for('knowledge_base') }}" class="btn btn-sm btn-link text-decoration-none fw-semibold p-0">
+        View All in Knowledge Base &rarr;
+      </a>
+    </div>
+
+    <div class="row g-4">
+      {% for cid, career in careers.items() %}
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 border rounded-3 p-3 career-item shadow-none hover-border-primary">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="fw-bold text-dark mb-0">{{ career.name }}</h5>
+            <span class="badge bg-light text-secondary border small">{{ career.skills|length }} skills</span>
+          </div>
+          <p class="text-muted small mb-3 flex-grow-1">{{ career.description }}</p>
+          
+          <div class="mb-3 pt-2 border-top">
+            <span class="text-secondary small fw-semibold d-block mb-2">Required Skills:</span>
+            <div class="d-flex flex-wrap gap-1">
+              {% for sname, sinfo in career.skills.items() %}
+                <span class="skill-tag">{{ sname }} (Level {{ sinfo.required_level }})</span>
+              {% endfor %}
+            </div>
+          </div>
+
+          <a href="{{ url_for('assessment') }}?career={{ cid }}" class="btn btn-outline-primary btn-sm w-100 rounded-2 fw-medium">
+            Start Assessment for this Role
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Proficiency Scale Reference -->
+<section class="py-5 bg-light-subtle border-top">
+  <div class="container text-center">
+    <h4 class="fw-bold text-dark mb-2">5-Level Proficiency Scale</h4>
+    <p class="text-muted small mb-4">Standardized skill rating scale used throughout the expert system</p>
+
+    <div class="row g-3 max-w-900 mx-auto text-start">
+      <div class="col-md col-sm-6">
+        <div class="p-3 bg-white rounded-3 border h-100">
+          <div class="fw-bold text-secondary mb-1">Level 1 &bull; Beginner</div>
+          <p class="small text-muted mb-0">Familiar with basic terminology, needs close guidance.</p>
+        </div>
+      </div>
+      <div class="col-md col-sm-6">
+        <div class="p-3 bg-white rounded-3 border h-100">
+          <div class="fw-bold text-info mb-1">Level 2 &bull; Basic</div>
+          <p class="small text-muted mb-0">Understands core ideas, handles simple guided tasks.</p>
+        </div>
+      </div>
+      <div class="col-md col-sm-6">
+        <div class="p-3 bg-white rounded-3 border h-100">
+          <div class="fw-bold text-warning mb-1">Level 3 &bull; Intermediate</div>
+          <p class="small text-muted mb-0">Solves standard problems independently.</p>
+        </div>
+      </div>
+      <div class="col-md col-sm-6">
+        <div class="p-3 bg-white rounded-3 border h-100">
+          <div class="fw-bold text-primary mb-1">Level 4 &bull; Advanced</div>
+          <p class="small text-muted mb-0">Handles complex tasks and writes clean solutions.</p>
+        </div>
+      </div>
+      <div class="col-md col-sm-6">
+        <div class="p-3 bg-white rounded-3 border h-100">
+          <div class="fw-bold text-success mb-1">Level 5 &bull; Expert</div>
+          <p class="small text-muted mb-0">Authoritative master, architects systems & mentors others.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

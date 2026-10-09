@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}How It Works & Inference Rules - Skill-Gap Analysis Expert System{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-9">
+
+      <!-- Header Banner -->
+      <div class="mb-4">
+        <span class="badge bg-light text-primary border small mb-2">System Architecture</span>
+        <h2 class="fw-bold text-dark mb-1">How the Expert System Works</h2>
+        <p class="text-muted small mb-0">
+          Formal production rules executed by the forward-chaining inference engine over student input facts.
+        </p>
+      </div>
+
+      <!-- Core Concepts Summary -->
+      <div class="card border rounded-3 p-4 mb-4 bg-white shadow-sm">
+        <h5 class="fw-bold text-dark mb-3">Core Components of the Expert System</h5>
+        <div class="row g-3 small text-muted">
+          <div class="col-md-4">
+            <div class="p-3 bg-light rounded-2 border h-100">
+              <strong class="text-dark d-block mb-1"><i class="bi bi-database me-1 text-primary"></i> 1. Knowledge Base</strong>
+              <span>Decoupled domain facts storing career benchmark proficiencies (1–5) and learning roadmaps in <code>careers.json</code>.</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 bg-light rounded-2 border h-100">
+              <strong class="text-dark d-block mb-1"><i class="bi bi-diagram-3 me-1 text-primary"></i> 2. Production Rules</strong>
+              <span>Deterministic IF–THEN rules (antecedents & consequents) defining gap identification and priority heuristics.</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 bg-light rounded-2 border h-100">
+              <strong class="text-dark d-block mb-1"><i class="bi bi-cpu me-1 text-primary"></i> 3. Inference Engine</strong>
+              <span>Forward-chaining algorithm that pattern-matches student inputs to fire rules and generate an audit trail.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rules Catalog -->
+      <div class="mb-4">
+        <h5 class="fw-bold text-dark mb-3">Production Rules Catalog</h5>
+
+        <div class="row g-3">
+          {% for rule in rules %}
+          <div class="col-md-6">
+            <div class="card h-100 border rounded-3 bg-white p-3 shadow-none hover-border-primary">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-light text-dark border font-monospace">{{ rule.rule_id }}</span>
+                <strong class="text-dark small">{{ rule.name }}</strong>
+              </div>
+              <p class="text-muted small mb-3" style="font-size: 0.825rem;">{{ rule.description }}</p>
+
+              <!-- IF Condition -->
+              <div class="p-2 px-3 bg-light rounded-2 mb-2 border-start border-3 border-primary small">
+                <span class="fw-semibold text-secondary d-block" style="font-size: 0.75rem;">IF (Antecedent):</span>
+                <code class="text-dark" style="font-size: 0.8rem;">{{ rule.if_condition }}</code>
+              </div>
+
+              <!-- THEN Action -->
+              <div class="p-2 px-3 bg-light rounded-2 border-start border-3 border-success small">
+                <span class="fw-semibold text-secondary d-block" style="font-size: 0.75rem;">THEN (Consequent):</span>
+                <code class="text-dark" style="font-size: 0.8rem;">{{ rule.then_action }}</code>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Viva Defense FAQ Accordion -->
+      <div class="card border rounded-3 p-4 bg-white shadow-sm mb-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="badge bg-light text-primary border small">College Viva Preparation</span>
+          <h5 class="fw-bold text-dark mb-0">Frequently Asked Viva Questions</h5>
+        </div>
+        <p class="text-muted small mb-4">
+          Core concepts to explain during academic demonstration and viva examinations:
+        </p>
+
+        <div class="accordion accordion-flush" id="vivaAccordion">
+          <!-- Q1 -->
+          <div class="accordion-item border rounded-2 mb-2">
+            <h2 class="accordion-header" id="h1">
+              <button class="accordion-button collapsed fw-semibold text-dark small" type="button" data-bs-toggle="collapse" data-bs-target="#c1">
+                1. What makes this an Expert System rather than an ordinary form?
+              </button>
+            </h2>
+            <div id="c1" class="accordion-collapse collapse show" data-bs-parent="#vivaAccordion">
+              <div class="accordion-body text-muted small pt-0">
+                An expert system separates domain knowledge from computational reasoning. In our project:
+                <ul class="mb-0 mt-2 ps-3">
+                  <li><strong>Knowledge Base:</strong> Industry requirements and benchmarks are stored independently in <code>knowledge_base/careers.json</code>.</li>
+                  <li><strong>Inference Engine:</strong> Reasoning logic in <code>inference_engine.py</code> evaluates formal IF–THEN production rules.</li>
+                  <li><strong>Explanation Facility:</strong> Traces rule firings so the system can explain <i>why</i> every recommendation was deduced.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="accordion-item border rounded-2 mb-2">
+            <h2 class="accordion-header" id="h2">
+              <button class="accordion-button collapsed fw-semibold text-dark small" type="button" data-bs-toggle="collapse" data-bs-target="#c2">
+                2. How does Forward Chaining work in this system?
+              </button>
+            </h2>
+            <div id="c2" class="accordion-collapse collapse" data-bs-parent="#vivaAccordion">
+              <div class="accordion-body text-muted small pt-0">
+                <strong>Forward Chaining</strong> is a data-driven reasoning method. It starts with known input facts asserted in working memory (Student Level = 2, Required Level = 4) and applies production rules forward to derive new facts (Skill Gap = 2, Priority = MEDIUM, Remediation Roadmap) until all conclusions are deduced.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="accordion-item border rounded-2 mb-2">
+            <h2 class="accordion-header" id="h3">
+              <button class="accordion-button collapsed fw-semibold text-dark small" type="button" data-bs-toggle="collapse" data-bs-target="#c3">
+                3. What is the role of the Explanation Facility?
+              </button>
+            </h2>
+            <div id="c3" class="accordion-collapse collapse" data-bs-parent="#vivaAccordion">
+              <div class="accordion-body text-muted small pt-0">
+                The Explanation Facility maintains an execution audit trace of every rule fired and mathematical comparison. It articulates human-readable rationales: <i>"SQL is marked as a Medium Priority gap because your current level is 2 while required benchmark is 4, which fired RULE-04."</i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

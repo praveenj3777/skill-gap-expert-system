@@ -1,0 +1,281 @@
+{
+  "careers": {
+    "data_analyst": {
+      "id": "data_analyst",
+      "name": "Data Analyst",
+      "description": "Examines, cleans, transforms, and models data to discover useful information, suggest conclusions, and support business decision-making.",
+      "domain": "Data Analytics & Business Intelligence",
+      "skills": {
+        "Python": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Automate data workflows, manipulate dataframes using Pandas/NumPy, and perform exploratory data analysis (EDA).",
+          "recommendation": "Master Pandas, NumPy, and data wrangling techniques. Practice analyzing real-world CSV/JSON datasets on Kaggle.",
+          "resources": ["Kaggle Python Course", "Pandas Official Tutorials", "LeetCode Pandas 30-Day Challenge"]
+        },
+        "SQL": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Write complex relational queries using SELECT, JOINs, aggregations, window functions, and CTEs to extract raw business data.",
+          "recommendation": "Improve SQL fundamentals: practice multi-table JOINs, GROUP BY, HAVING, subqueries, and window functions (RANK, ROW_NUMBER) on LeetCode/HackerRank.",
+          "resources": ["Mode Analytics SQL Tutorial", "HackerRank SQL Practice", "SQLZoo Interactive Exercises"]
+        },
+        "Excel": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Utilize advanced formulas (XLOOKUP, INDEX/MATCH), Pivot Tables, Power Query, and basic VBA for rapid tabular modeling.",
+          "recommendation": "Advance from basic arithmetic to nested formulas, Pivot Tables, Power Query transformations, and interactive dashboard creation.",
+          "resources": ["Excel Easy Tutorials", "Microsoft Learn Excel Modules", "Chandoo.org Data Modeling"]
+        },
+        "Statistics": {
+          "required_level": 3,
+          "importance": "Critical Foundational",
+          "description": "Understand descriptive metrics (mean, median, variance), hypothesis testing, p-values, distributions, and correlation vs causation.",
+          "recommendation": "Study probability distributions, A/B testing concepts, central limit theorem, and confidence intervals through practical case studies.",
+          "resources": ["StatQuest with Josh Starmer", "Khan Academy Statistics", "OpenIntro Statistics"]
+        },
+        "Data Visualization": {
+          "required_level": 3,
+          "importance": "Operational",
+          "description": "Communicate patterns effectively through charts using Matplotlib, Seaborn, and sound visual hierarchy design principles.",
+          "recommendation": "Build visual stories using bar, scatter, box, and heat maps; avoid deceptive charts and practice presenting data insights clearly.",
+          "resources": ["Storytelling with Data", "Seaborn Official Gallery", "Data-to-Viz Decision Tree"]
+        },
+        "Power BI": {
+          "required_level": 3,
+          "importance": "Operational",
+          "description": "Build interactive executive dashboards, configure star-schema data models, and write fundamental DAX measures.",
+          "recommendation": "Learn Power Query ETL in Power BI Desktop, basic DAX expressions (CALCULATE, RELATED, SUMX), and publish scheduled reports.",
+          "resources": ["Microsoft Learn Power BI Path", "Guy in a Cube Tutorials", "Workout Wednesday Power BI"]
+        }
+      }
+    },
+    "web_developer": {
+      "id": "web_developer",
+      "name": "Web Developer",
+      "description": "Designs and builds responsive client-side user interfaces and robust server-side APIs to deliver modern web applications.",
+      "domain": "Web Engineering & Full-Stack Development",
+      "skills": {
+        "HTML": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Semantic markup, accessibility (ARIA), SEO meta structure, and modern HTML5 document layout.",
+          "recommendation": "Focus on semantic HTML5 tags (nav, main, section, article), form validations, accessibility compliance, and structural SEO.",
+          "resources": ["MDN Web Docs HTML", "freeCodeCamp Responsive Web Design", "W3C Accessibility Guidelines"]
+        },
+        "CSS": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Modern CSS layouts with Flexbox and CSS Grid, transitions, animations, CSS variables, and clean styling architecture.",
+          "recommendation": "Strengthen CSS Grid, Flexbox alignment, BEM methodology, CSS variables, and fluid typography techniques.",
+          "resources": ["CSS Tricks Flexbox Guide", "Grid Garden Interactive Game", "Kevin Powell CSS on YouTube"]
+        },
+        "JavaScript": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "ES6+ syntax, asynchronous programming (Promises, async/await), DOM manipulation, Fetch API, and closures.",
+          "recommendation": "Master ES6+ features (destructuring, arrow functions), Event Loop, DOM manipulation, and asynchronous API integration.",
+          "resources": ["javascript.info", "Eloquent JavaScript", "Namaste JavaScript by Akshay Saini"]
+        },
+        "Git": {
+          "required_level": 3,
+          "importance": "Critical Foundational",
+          "description": "Version control workflows, branching, commits, merging, pull requests, and resolving merge conflicts.",
+          "recommendation": "Practice daily terminal Git commands: branching (`git checkout -b`), stashing, rebasing, and collaborating via GitHub pull requests.",
+          "resources": ["Learn Git Branching Interactive", "Pro Git Book (Free)", "GitHub Skills Courses"]
+        },
+        "Responsive Design": {
+          "required_level": 3,
+          "importance": "Operational",
+          "description": "Mobile-first layouts, CSS media queries, responsive images (srcset), and cross-device testing.",
+          "recommendation": "Adopt a mobile-first development approach, test viewport breakpoints using browser DevTools, and implement fluid layouts.",
+          "resources": ["Google Web.dev Responsive Design", "MDN Responsive Design Basics", "InternetingIsHard HTML & CSS"]
+        },
+        "Backend Basics": {
+          "required_level": 3,
+          "importance": "Operational",
+          "description": "Understanding HTTP verbs, RESTful routing, server-side sessions, request-response lifecycles, and API design.",
+          "recommendation": "Build lightweight REST API endpoints using Python (Flask/FastAPI) or Node.js/Express, handling JSON requests and status codes.",
+          "resources": ["Flask Quickstart Documentation", "MDN Express Tutorial", "RESTful API Design Best Practices"]
+        }
+      }
+    },
+    "software_developer": {
+      "id": "software_developer",
+      "name": "Software Developer",
+      "description": "Architects, writes, tests, and maintains reliable, scalable computer software and backend application logic.",
+      "domain": "Software Engineering & Computer Science",
+      "skills": {
+        "Data Structures & Algorithms": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Arrays, linked lists, trees, graphs, sorting, searching, hashing, and asymptotic Big-O time/space complexity analysis.",
+          "recommendation": "Solve standard DSA problems systematically on arrays, strings, trees, and graphs. Focus on explaining time and space complexity.",
+          "resources": ["NeetCode Roadmap", "LeetCode 75 Curated List", "GeeksforGeeks DSA Self-Paced"]
+        },
+        "Python or Java": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Deep syntax command, standard library fluency, memory model, concurrency primitives, and unit testing frameworks.",
+          "recommendation": "Deepen language mastery: learn memory management, exceptions, standard library collections, and write unit tests with pytest/JUnit.",
+          "resources": ["Official Python Documentation", "Core Java Horstmann", "Exercism Coding Tracks"]
+        },
+        "Object-Oriented Programming": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Encapsulation, inheritance, polymorphism, abstraction, and clean software architecture (SOLID principles).",
+          "recommendation": "Implement SOLID principles in small projects, write clean modular classes, and avoid tight coupling between business logic and UI.",
+          "resources": ["Refactoring.Guru Design Patterns", "Clean Code Summary", "Head First Design Patterns"]
+        },
+        "Git & Version Control": {
+          "required_level": 3,
+          "importance": "Critical Foundational",
+          "description": "Collaborative branching strategies (Git Flow), atomic commits, code review etiquettes, and conflict resolution.",
+          "recommendation": "Adopt conventional commit messages, create feature branches, and practice squash rebasing and interactive Git operations.",
+          "resources": ["Conventional Commits", "Atlassian Git Tutorials", "Pro Git Guide"]
+        },
+        "Database Management": {
+          "required_level": 3,
+          "importance": "Critical Foundational",
+          "description": "Relational schema design, ACID transactions, primary/foreign keys, normalization (1NF-3NF), and basic indexing.",
+          "recommendation": "Design normalized database schemas, write transactional SQL, and analyze query execution plans with EXPLAIN.",
+          "resources": ["PostgreSQL Tutorial", "Use The Index, Luke!", "Database Systems Course Notes"]
+        },
+        "System Design Basics": {
+          "required_level": 3,
+          "importance": "Operational",
+          "description": "Client-server architecture, caching strategies, load balancing concepts, horizontal vs vertical scaling, and microservices.",
+          "recommendation": "Study high-level components of web architectures: DNS, CDN, load balancers, caching (Redis), and stateless backend servers.",
+          "resources": ["System Design Primer (GitHub)", "ByteByteGo YouTube Channel", "Martin Fowler Architecture Guides"]
+        }
+      }
+    },
+    "ai_ml_engineer": {
+      "id": "ai_ml_engineer",
+      "name": "AI/ML Engineer",
+      "description": "Designs, trains, evaluates, and deploys predictive machine learning models and deep neural networks to solve complex problems.",
+      "domain": "Artificial Intelligence & Data Science",
+      "skills": {
+        "Python": {
+          "required_level": 5,
+          "importance": "Core Essential",
+          "description": "Expert fluency in Python, vectorization with NumPy, Pandas pipelines, performance profiling, and modular package structure.",
+          "recommendation": "Develop expert Python fluency: vectorized tensor computations, clean OOP for pipeline modules, profiling, and efficient data processing.",
+          "resources": ["Fluent Python by Luciano Ramalho", "NumPy Illustrated Guide", "Real Python Advanced Paths"]
+        },
+        "Mathematics & Linear Algebra": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Vector spaces, matrix multiplication, eigenvalues/eigenvectors, multivariable calculus (gradients/backpropagation), and probability theory.",
+          "recommendation": "Review linear algebra (eigenvalues, dot products, matrix decompositions) and multivariable calculus (partial derivatives, gradient descent).",
+          "resources": ["3Blue1Brown Essence of Linear Algebra", "Khan Academy Multivariable Calculus", "Mathematics for Machine Learning Book"]
+        },
+        "Machine Learning Algorithms": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Supervised & unsupervised algorithms: Linear/Logistic Regression, Decision Trees, Random Forests, Gradient Boosting (XGBoost), and K-Means.",
+          "recommendation": "Implement classical ML algorithms using Scikit-Learn; understand the bias-variance tradeoff, regularization (L1/L2), and hyperparameter tuning.",
+          "resources": ["Andrew Ng Machine Learning Specialization", "Scikit-Learn User Guide", "Hands-On ML with Scikit-Learn and TensorFlow"]
+        },
+        "Deep Learning": {
+          "required_level": 3,
+          "importance": "Critical Foundational",
+          "description": "Multi-Layer Perceptrons, activation functions (ReLU, Softmax), backpropagation, CNNs for computer vision, and Transformer basics in PyTorch.",
+          "recommendation": "Build foundational neural nets using PyTorch or TensorFlow; learn loss functions, optimizers (Adam), and training validation loops.",
+          "resources": ["PyTorch 60-Minute Blitz", "Fast.ai Practical Deep Learning", "DeepLearning.AI Courses"]
+        },
+        "Data Preprocessing": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Handling missing data, one-hot/ordinal encoding, feature scaling (StandardScaler/MinMax), feature engineering, and outlier detection.",
+          "recommendation": "Construct robust Scikit-Learn Pipelines with ColumnTransformers to prevent data leakage between train and test splits.",
+          "resources": ["Scikit-Learn Preprocessing Guide", "Feature Engineering for ML (Alice Zheng)", "Kaggle Feature Engineering"]
+        },
+        "Model Evaluation": {
+          "required_level": 3,
+          "importance": "Operational",
+          "description": "Confusion matrix, Precision, Recall, F1-Score, ROC-AUC curve, cross-validation, and detecting overfitting vs underfitting.",
+          "recommendation": "Master evaluation metrics beyond simple accuracy: analyze Precision-Recall curves, confusion matrices, and k-fold cross-validation.",
+          "resources": ["Google ML Crash Course - Classification Metrics", "Scikit-Learn Model Selection", "Applied Predictive Modeling"]
+        }
+      }
+    },
+    "cybersecurity_analyst": {
+      "id": "cybersecurity_analyst",
+      "name": "Cybersecurity Analyst",
+      "description": "Monitors networks, identifies vulnerabilities, investigates security breaches, and implements proactive defensive countermeasures.",
+      "domain": "Information Security & Defensive Operations",
+      "skills": {
+        "Network Security": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "OSI & TCP/IP models, packet inspection, firewalls, subnets, VPNs, DNS security, and Wireshark traffic analysis.",
+          "recommendation": "Study packet analysis with Wireshark, understand TCP handshakes, subnetting, common port protocols, and firewall rulesets.",
+          "resources": ["Wireshark Official Documentation", "Professor Messer Network+ Playlist", "TryHackMe Pre-Security Path"]
+        },
+        "Linux & Operating Systems": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Bash shell scripting, file permissions (chmod/chown), process management, system logging (/var/log), and kernel basics.",
+          "recommendation": "Gain solid Linux terminal proficiency: navigate filesystem, inspect auth logs, manage user groups, and write defensive Bash scripts.",
+          "resources": ["OverTheWire Bandit Wargame", "Linux Journey Interactive", "Linux Command Line by William Shotts"]
+        },
+        "Cryptography Basics": {
+          "required_level": 3,
+          "importance": "Critical Foundational",
+          "description": "Symmetric vs asymmetric encryption (AES, RSA), hashing algorithms (SHA-256), digital certificates (PKI), and SSL/TLS handshakes.",
+          "recommendation": "Learn core cryptographic primitives: hashing vs encryption vs encoding, public key infrastructure, and SSL certificate chains.",
+          "resources": ["Crypto101 Free Book", "Khan Academy Cryptography", "Computerphile Cryptography Videos"]
+        },
+        "Vulnerability Assessment": {
+          "required_level": 3,
+          "importance": "Critical Foundational",
+          "description": "Scanning tools (Nmap, OpenVAS/Nessus), identifying OWASP Top 10 web vulnerabilities, CVE analysis, and CVSS scoring.",
+          "recommendation": "Practice scanning local lab environments with Nmap, research CVE databases, and study the OWASP Top 10 web security risks.",
+          "resources": ["OWASP Top 10 Official Guide", "PortSwigger Web Security Academy", "Nmap Network Scanning Book"]
+        },
+        "Threat Intelligence & SIEM": {
+          "required_level": 3,
+          "importance": "Operational",
+          "description": "Log correlation, detecting anomaly signatures, MITRE ATT&CK framework, and tools like Splunk or ELK stack.",
+          "recommendation": "Explore log analysis and alerting using Splunk or Elastic SIEM; map adversary techniques to the MITRE ATT&CK framework.",
+          "resources": ["Splunk Free Training", "TryHackMe SOC Level 1 Path", "MITRE ATT&CK Navigator"]
+        },
+        "Security Protocols": {
+          "required_level": 4,
+          "importance": "Core Essential",
+          "description": "Enforcing secure communication protocols: HTTPS, SSH, SFTP, IPsec, DNSSEC, Multi-Factor Authentication (MFA), and zero trust.",
+          "recommendation": "Understand implementation details of secure communication standards, SSH key hardening, and modern IAM/MFA architectures.",
+          "resources": ["NIST Cybersecurity Framework", "Cloudflare Learning Center - Protocols", "CISA Security Tips"]
+        }
+      }
+    }
+  },
+  "proficiency_scale": {
+    "1": {
+      "level": 1,
+      "label": "Beginner",
+      "summary": "Familiar with terminology but has minimal hands-on experience; requires close guidance."
+    },
+    "2": {
+      "level": 2,
+      "label": "Basic",
+      "summary": "Understands core concepts and can execute simple tasks following step-by-step instructions."
+    },
+    "3": {
+      "level": 3,
+      "label": "Intermediate",
+      "summary": "Can solve standard problems independently; comfortable with common tools and workflows."
+    },
+    "4": {
+      "level": 4,
+      "label": "Advanced",
+      "summary": "Possesses in-depth practical knowledge, can handle complex scenarios, and produces optimized solutions."
+    },
+    "5": {
+      "level": 5,
+      "label": "Expert",
+      "summary": "Comprehensive authority; can architect end-to-end systems, troubleshoot deep anomalies, and mentor others."
+    }
+  }
+}

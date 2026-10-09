@@ -1,0 +1,348 @@
+{% extends "base.html" %}
+
+{% block title %}Skill-Gap Results - {{ result.student_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-9">
+
+      <!-- Result Header Card -->
+      <div class="card border rounded-3 p-4 mb-4 bg-white shadow-sm">
+        <div class="row align-items-center g-3">
+          <div class="col-md-7">
+            <span class="badge bg-light text-primary border small mb-2">Analysis Complete</span>
+            <h2 class="fw-bold text-dark mb-1">
+              {{ result.student_name }}'s Skill-Gap Report
+            </h2>
+            <div class="text-muted small">
+              Target Career: <strong class="text-dark">{{ result.career_name }}</strong> ({{ result.career_domain }})
+            </div>
+            <p class="text-muted small mt-2 mb-0">{{ result.career_description }}</p>
+          </div>
+          <div class="col-md-5 text-md-end text-start">
+            <div class="readiness-box p-3 rounded-3 bg-light border d-inline-block text-center w-100 w-md-auto">
+              <div class="text-muted small fw-semibold text-uppercase mb-1">Career Readiness</div>
+              <div class="readiness-number text-primary fw-bold mb-1">
+                {{ result.readiness_percentage }}%
+              </div>
+              <span class="badge bg-{{ result.readiness_color }} px-3 py-1 rounded-pill small">
+                {{ result.readiness_tier }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="mt-4 pt-2 border-top">
+          <div class="d-flex justify-content-between small text-muted mb-1">
+            <span>Overall Readiness Progress</span>
+            <span>{{ result.total_effective_points }} / {{ result.total_required_points }} points</span>
+          </div>
+          <div class="progress" style="height: 10px; border-radius: 5px;">
+            <div class="progress-bar bg-{{ result.readiness_color }}" 
+                 role="progressbar" 
+                 style="width: {{ result.readiness_percentage }}%;" 
+                 aria-valuenow="{{ result.readiness_percentage }}" 
+                 aria-valuemin="0" 
+                 aria-valuemax="100"></div>
+          </div>
+          <div class="small text-muted mt-2">
+            {{ result.readiness_summary }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Overview: Strong Skills vs Skill Gaps -->
+      <div class="row g-3 mb-4">
+        <!-- Strong Skills -->
+        <div class="col-md-6">
+          <div class="card border rounded-3 p-3 h-100 bg-white shadow-sm">
+            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+              <span class="fw-bold text-dark small text-uppercase">
+                <i class="bi bi-check-circle-fill text-success me-1"></i> Your Strong Skills
+              </span>
+              <span class="badge bg-success-subtle text-success border border-success-subtle small">
+                {{ result.counts.sufficient }} Sufficient
+              </span>
+            </div>
+            {% if result.priority_groups.SUFFICIENT %}
+              <div class="d-flex flex-wrap gap-2 pt-1">
+                {% for item in result.priority_groups.SUFFICIENT %}
+                  <span class="badge bg-light text-dark border p-2 fw-medium">
+                    <i class="bi bi-check2 text-success me-1"></i> {{ item.skill }} (Level {{ item.current }}/5)
+                  </span>
+                {% endfor %}
+              </div>
+            {% else %}
+              <p class="text-muted small mb-0 pt-1">No skills currently meet the target benchmark.</p>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Skill Gaps Overview -->
+        <div class="col-md-6">
+          <div class="card border rounded-3 p-3 h-100 bg-white shadow-sm">
+            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+              <span class="fw-bold text-dark small text-uppercase">
+                <i class="bi bi-exclamation-triangle-fill text-warning me-1"></i> Your Skill Gaps
+              </span>
+              <span class="badge bg-light text-secondary border small">
+                {{ result.counts.high + result.counts.medium + result.counts.low }} Gaps Identified
+              </span>
+            </div>
+            <div class="d-flex flex-wrap gap-2 pt-1">
+              <span class="badge bg-danger-subtle text-danger border border-danger-subtle p-2">
+                <strong>{{ result.counts.high }}</strong> High Priority
+              </span>
+              <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle p-2">
+                <strong>{{ result.counts.medium }}</strong> Medium Priority
+              </span>
+              <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle p-2">
+                <strong>{{ result.counts.low }}</strong> Low Priority
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sequenced Remediation Strategy if available -->
+      {% if result.focus_strategy and result.focus_strategy.primary_focus %}
+      <div class="card border rounded-3 p-3 mb-4 bg-light border-primary-subtle shadow-none">
+        <div class="d-flex align-items-start gap-2">
+          <i class="bi bi-compass text-primary mt-1"></i>
+          <div>
+            <div class="fw-bold text-dark small">{{ result.focus_strategy.action }}</div>
+            <div class="text-muted small mb-2">{{ result.focus_strategy.strategy_note }}</div>
+            <div class="d-flex flex-wrap gap-1">
+              {% for s in result.focus_strategy.primary_focus %}
+                <span class="badge bg-danger text-white small px-2 py-1">Focus First: {{ s }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Skill Analysis Table -->
+      <div class="card border rounded-3 mb-4 bg-white shadow-sm overflow-hidden">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+          <h6 class="fw-bold text-dark mb-0">Detailed Skill Analysis</h6>
+          <span class="badge bg-light text-muted border small">{{ result.skills_analysis|length }} Skills</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0 small">
+            <thead class="table-light text-secondary text-uppercase" style="font-size: 0.75rem;">
+              <tr>
+                <th class="ps-3">Skill</th>
+                <th class="text-center">Current</th>
+                <th class="text-center">Required</th>
+                <th class="text-center">Gap</th>
+                <th class="text-center">Status</th>
+                <th class="text-center pe-3">Priority</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in result.skills_analysis %}
+              <tr>
+                <td class="ps-3">
+                  <strong class="text-dark">{{ item.skill }}</strong>
+                </td>
+                <td class="text-center">
+                  <span class="badge bg-light text-dark border">
+                    {{ item.student_level }}/5 ({{ item.student_label }})
+                  </span>
+                </td>
+                <td class="text-center">
+                  <span class="badge bg-light text-primary border border-primary-subtle">
+                    {{ item.required_level }}/5 ({{ item.required_label }})
+                  </span>
+                </td>
+                <td class="text-center">
+                  {% if item.gap > 0 %}
+                    <span class="fw-bold text-danger">{{ item.gap }}</span>
+                  {% else %}
+                    <span class="fw-bold text-success">0</span>
+                  {% endif %}
+                </td>
+                <td class="text-center">
+                  {% if item.status == 'SUFFICIENT' %}
+                    <span class="badge bg-success-subtle text-success border border-success-subtle">
+                      Sufficient
+                    </span>
+                  {% else %}
+                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                      Needs Improvement
+                    </span>
+                  {% endif %}
+                </td>
+                <td class="text-center pe-3">
+                  {% if item.priority == 'HIGH' %}
+                    <span class="badge bg-danger">HIGH</span>
+                  {% elif item.priority == 'MEDIUM' %}
+                    <span class="badge bg-warning text-dark">MEDIUM</span>
+                  {% elif item.priority == 'LOW' %}
+                    <span class="badge bg-info text-dark">LOW</span>
+                  {% else %}
+                    <span class="badge bg-success">SUFFICIENT</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Recommended Learning Path (Requirement 5) -->
+      <div class="card border rounded-3 p-4 mb-4 bg-white shadow-sm">
+        <h5 class="fw-bold text-dark mb-1">Recommended Learning Path</h5>
+        <p class="text-muted small mb-3">Prioritized recommendations and learning resources for each identified gap:</p>
+
+        {% if result.recommendations %}
+          <div class="d-flex flex-column gap-3">
+            {% for rec in result.recommendations %}
+            <div class="card border rounded-3 p-3 bg-light-subtle shadow-none">
+              <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                <div class="d-flex align-items-center gap-2">
+                  <h6 class="fw-bold text-dark mb-0">{{ rec.skill }}</h6>
+                  {% if rec.priority == 'HIGH' %}
+                    <span class="badge bg-danger">High Priority</span>
+                  {% elif rec.priority == 'MEDIUM' %}
+                    <span class="badge bg-warning text-dark">Medium Priority</span>
+                  {% else %}
+                    <span class="badge bg-info text-dark">Low Priority</span>
+                  {% endif %}
+                </div>
+                <div class="text-muted small">
+                  Current: <strong>{{ rec.student_level }}/5</strong> &bull; Required: <strong>{{ rec.required_level }}/5</strong> &bull; Gap: <strong>{{ rec.gap }}</strong>
+                </div>
+              </div>
+
+              <!-- Why it matters -->
+              <div class="mb-2">
+                <div class="text-secondary small fw-semibold">Why it matters:</div>
+                <div class="small text-muted">
+                  "Your {{ rec.skill }} level is below the required benchmark for {{ result.career_name }}."
+                </div>
+              </div>
+
+              <!-- What to learn next -->
+              <div class="mb-2">
+                <div class="text-secondary small fw-semibold">What to learn next:</div>
+                <div class="small text-dark">
+                  {{ rec.learning_recommendation }}
+                </div>
+              </div>
+
+              <!-- Free Resources -->
+              {% if rec.resources %}
+              <div class="pt-2 border-top">
+                <span class="text-muted small fw-semibold me-2">Practice Resources:</span>
+                <div class="d-inline-flex flex-wrap gap-1 mt-1">
+                  {% for r in rec.resources %}
+                    <span class="badge bg-white text-secondary border small">{{ r }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="text-center py-4">
+            <i class="bi bi-trophy text-success fs-1 mb-2 d-block"></i>
+            <h6 class="fw-bold text-success">Great job! No skill gaps detected.</h6>
+            <p class="text-muted small mb-0">Your current skills meet or exceed all benchmark requirements for this career.</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Clean Explainability Section (Requirement 6 for College Viva) -->
+      <div class="card border rounded-3 mb-4 bg-white shadow-sm overflow-hidden">
+        <div class="card-header bg-light py-3 border-bottom d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="fw-bold text-dark mb-0">
+              <i class="bi bi-question-circle text-primary me-1"></i> Why did the system recommend this?
+            </h6>
+            <div class="text-muted small" style="font-size: 0.8rem;">
+              Expert System Inference Reasoning & Rule Firing Trace
+            </div>
+          </div>
+          <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#traceCollapse" aria-expanded="true">
+            Toggle Details
+          </button>
+        </div>
+
+        <div class="collapse show" id="traceCollapse">
+          <div class="card-body p-3 p-md-4">
+            <p class="text-muted small mb-3">
+              The expert system applies production rules (IF–THEN) over student facts in working memory. Here is how each recommendation was deduced:
+            </p>
+
+            <div class="d-flex flex-column gap-3">
+              {% for trace in result.inference_trace %}
+              <div class="p-3 border rounded-3 bg-light-subtle">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <strong class="text-dark">{{ trace.skill }}</strong>
+                  <span class="badge bg-white text-dark border small">
+                    {{ trace.conclusion }}
+                  </span>
+                </div>
+
+                <div class="row g-2 small text-muted font-monospace mb-2">
+                  <div class="col-sm-6">Current Skill = {{ trace.student_level }}</div>
+                  <div class="col-sm-6">Required Skill = {{ trace.required_level }}</div>
+                </div>
+
+                <div class="p-2 bg-white rounded border small mb-2">
+                  <div class="fw-semibold text-secondary">Rule Applied:</div>
+                  <div class="text-dark">
+                    <code>{{ trace.rules_fired }}</code>: {{ trace.math_step }}
+                  </div>
+                </div>
+
+                <div class="small text-secondary">
+                  <strong>Conclusion:</strong> {{ trace.explanation }}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <!-- Optional Working Memory Facts Details -->
+            <div class="mt-3 pt-3 border-top">
+              <button class="btn btn-link btn-sm text-decoration-none p-0 text-muted" type="button" data-bs-toggle="collapse" data-bs-target="#workingMemoryCollapse">
+                <i class="bi bi-list-check me-1"></i> View Working Memory Facts State ({{ result.working_memory_facts|length }} facts)
+              </button>
+              <div class="collapse mt-2" id="workingMemoryCollapse">
+                <div class="p-3 bg-light rounded border font-monospace small text-secondary">
+                  {% for fact in result.working_memory_facts %}
+                    <div>{{ fact }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-5">
+        <a href="{{ url_for('assessment') }}" class="btn btn-outline-primary px-4 rounded-3">
+          <i class="bi bi-arrow-left me-1"></i> New Assessment
+        </a>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-secondary px-3 rounded-3" onclick="window.print()">
+            <i class="bi bi-printer me-1"></i> Print / Save Report
+          </button>
+          <a href="{{ url_for('knowledge_base') }}" class="btn btn-primary px-4 rounded-3">
+            Explore Careers
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
